@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { MatTable } from '@angular/material/table';
 
@@ -15,19 +21,25 @@ import { MatTable } from '@angular/material/table';
       <!-- Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef>Име</th>
-        <td mat-cell *matCellDef="let employee" class="td-width">{{ employee.firstName }}</td>
+        <td mat-cell *matCellDef="let employee" class="td-width">
+          {{ employee.firstName }}
+        </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="lastName">
         <th mat-header-cell *matHeaderCellDef>Презиме</th>
-        <td mat-cell *matCellDef="let employee" class="td-width">{{ employee.lastName }}</td>
+        <td mat-cell *matCellDef="let employee" class="td-width">
+          {{ employee.lastName }}
+        </td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="education">
         <th mat-header-cell *matHeaderCellDef>Образовање</th>
-        <td mat-cell *matCellDef="let employee">{{ employee.quallification }}</td>
+        <td mat-cell *matCellDef="let employee">
+          {{ employee.quallification }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="gender">
@@ -41,11 +53,17 @@ import { MatTable } from '@angular/material/table';
       </ng-container>
 
       <ng-container matColumnDef="del">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let employee;">
-        <button mat-stroked-button color="warn" (click)="deleteRecord(employee)">Obrisi</button>
-      </td>
-    </ng-container>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let employee">
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="deleteRecord(employee)"
+          >
+            Obrisi
+          </button>
+        </td>
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -53,20 +71,29 @@ import { MatTable } from '@angular/material/table';
   `,
 })
 export class TableComponent {
-  displayedColumns: string[] = ['jmbg', 'firstName', 'lastName', 'education','gender','dateOfBirth', 'del'];
+  displayedColumns: string[] = [
+    'jmbg',
+    'firstName',
+    'lastName',
+    'education',
+    'gender',
+    'dateOfBirth',
+    'del',
+  ];
 
-  @Input() employees:any;
+  @Input() employees: any;
 
   @Output() onDelete = new EventEmitter();
 
-  @ViewChild(MatTable) table:any;
+  @ViewChild(MatTable) table: any;
 
-  constructor(private employeeService:EmployeeService){}
+  constructor(private employeeService: EmployeeService) {}
 
-
-  deleteRecord(empl:any){
+  deleteRecord(empl: any) {
     this.onDelete.emit(empl);
     this.employeeService.deleteEmployee(empl.id).subscribe();
+
+
   }
 
 
