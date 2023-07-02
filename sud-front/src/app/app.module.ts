@@ -21,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     HttpClientModule,
     ReactiveFormsModule,
     NgxChartsModule
+    FormsModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
