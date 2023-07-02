@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './services/employee.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -9,6 +11,12 @@ import { EmployeeService } from './services/employee.service';
         (dataEvent)="receieveData($event)"
         [apptable]="apptable"
       ></app-form>
+      <ngx-charts-advanced-pie-chart
+        [results]="totalNumOfEmployees"
+        [view]="view"
+        [scheme]="colorScheme"
+      >
+      </ngx-charts-advanced-pie-chart>
       <app-table
         [employees]="employees"
         #apptable
@@ -18,17 +26,39 @@ import { EmployeeService } from './services/employee.service';
   `,
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'sud-front';
 
   employees: any = [];
+  totalNumOfEmployees:any = [
 
-  constructor(private employeeService: EmployeeService) {}
+  ];
+
+  single:any;
+
+
+  view:any = [700, 400];
+
+  colorScheme:any = {
+    domain: ['#5AA454', '#A10A28']
+  };
+
+
+  constructor(private employeeService: EmployeeService) {
+  }
+
   ngOnInit() {
     this.employeeService.getEmployees().subscribe((value) => {
       console.log(value);
       this.employees = value;
     });
+
+    this.employeeService
+      .getTotalNumberOfEmployeesByGender()
+      .subscribe((value) => {
+        this.totalNumOfEmployees = value;
+        console.log(this.totalNumOfEmployees)
+      });
   }
 
   receieveData(event: any) {
@@ -37,15 +67,11 @@ export class AppComponent {
   }
 
   deletedEmployee(empl: any) {
-
-
-    const copyEmployees = this.employees.filter((employee:any) =>{
+    const copyEmployees = this.employees.filter((employee: any) => {
       console.log(empl.id);
       return employee.id !== empl.id;
-    })
+    });
 
-
-    this.employees = Object.assign([],copyEmployees);
+    this.employees = Object.assign([], copyEmployees);
   }
-
 }

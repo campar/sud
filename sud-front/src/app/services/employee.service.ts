@@ -30,4 +30,9 @@ export class EmployeeService {
   deleteEmployee(id:number){
       return this.http.delete(this.API_URL + `/employee/${id}`);
   }
+
+
+  getTotalNumberOfEmployeesByGender(){
+    return this.http.get(this.API_URL + "/statistics");
+  }
 }

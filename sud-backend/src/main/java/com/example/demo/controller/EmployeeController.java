@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.dto.GenderEmployeeSum;
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class EmployeeController {
        return employeeService.getAllEmployees();
     }
 
+
     @PostMapping("/employee")
     @CrossOrigin(origins = "http://localhost:4200")
     public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO){
@@ -36,5 +38,12 @@ public class EmployeeController {
     @CrossOrigin(origins = "http://localhost:4200")
     public void deleteEmployee(@PathVariable Long id){
         employeeService.delete(id);
+    }
+
+    @GetMapping("/statistics")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public List<GenderEmployeeSum> countTotalNumberOfEmployeesByGender(){
+
+        return employeeService.countTotalNumberOfEmployeesByGender();
     }
 }
