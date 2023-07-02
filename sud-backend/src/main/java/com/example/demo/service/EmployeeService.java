@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.dto.GenderEmployeeSum;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Quallification;
 import com.example.demo.repository.EmployeeRepository;
@@ -90,4 +91,8 @@ public class EmployeeService {
     }
 
 
+    public List<GenderEmployeeSum> countTotalNumberOfEmployeesByGender() {
+        return employeeRepository.countTotalNumberOfEmployeesByGender();
+
+    }
 }
