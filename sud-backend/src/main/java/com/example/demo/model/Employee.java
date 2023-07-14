@@ -56,6 +56,9 @@ public class Employee {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Column(name = "age")
+    private Integer age;
+
     @ManyToOne
     @JoinColumn(name = "quallification_id", foreignKey = @ForeignKey(
             name = "fk__employee__quallification"

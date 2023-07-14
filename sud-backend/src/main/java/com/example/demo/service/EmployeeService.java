@@ -56,14 +56,21 @@ public class EmployeeService {
         Integer genderParsed = Integer.parseInt((gender));
 
         if(genderParsed <= 499){
-            employee.setGender("Musko");
+            employee.setGender("Мушко");
         }
         else if(genderParsed >= 500 && genderParsed <= 999){
-            employee.setGender("Zensko");
+            employee.setGender("Женско");
         }
         Quallification quallification = quallificationRepository.findByName(employeeDTO.getQuallification());
 
         employee.setQuallification(quallification);
+
+
+
+        Integer yearOfBirth = employee.getDateOfBirth().getYear();
+        Integer currentYear =  Year.now().getValue();
+
+        employee.setAge(currentYear - yearOfBirth);
 
         employeeRepository.save(employee);
 
@@ -86,6 +93,7 @@ public class EmployeeService {
         dto.setLastName(employee.getLastName());
         dto.setDateOfBirth(employee.getDateOfBirth());
         dto.setQuallification(employee.getQuallification().getName());
+        dto.setAge(employee.getAge());
 
         return dto;
     }

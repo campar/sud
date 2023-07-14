@@ -9,6 +9,7 @@
 body, html{
   height:100%;
   width:100%;
+  font-family: sans-serif;
 }
 
 html{
@@ -89,7 +90,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .table{
-  margin-top:30px;
+  // margin-top:30px;
 }
 
 
@@ -196,6 +197,22 @@ table {
   -webkit-hyphens: auto;
   hyphens: auto;
 
+}
+
+.advanced-pie-legend .total-label {
+    // margin-bottom: 5px !important;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    margin-top: 0px !important;
+}
+
+.advanced-pie-legend-wrapper{
+  padding-left: 20px;
+}
+
+.mini-wrapper{
+  display:flex;
 }
 
 

@@ -22,6 +22,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 
 
@@ -41,8 +43,9 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxChartsModule
-    FormsModule
+    NgxChartsModule,
+    FormsModule,
+    MatToolbarModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
