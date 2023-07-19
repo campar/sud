@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.QuallificationListByGender;
 import com.example.demo.model.Quallification;
 import com.example.demo.service.QuallificationService;
 import lombok.AllArgsConstructor;
@@ -20,5 +21,12 @@ public class QuallificationController {
     @GetMapping("/quallifications")
     public List<Quallification> getAllQuallifications(){
         return quallificationService.getAllQuallifications();
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/quallifications/gender")
+    public List<QuallificationListByGender> getAllQuallificationsByGender(){
+        return quallificationService.getAlQuallificationsByGender();
     }
 }

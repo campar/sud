@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -58,6 +59,12 @@ public class Employee {
 
     @Column(name = "age")
     private Integer age;
+
+    @Column(name="deleted_at")
+    private LocalDate deletedAt;
+
+    @Column(name="on_position", columnDefinition="tinyint(1) default 0")
+    private Boolean onPosition;
 
     @ManyToOne
     @JoinColumn(name = "quallification_id", foreignKey = @ForeignKey(

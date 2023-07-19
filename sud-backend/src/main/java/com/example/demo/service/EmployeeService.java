@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.dto.GenderEmployeeSum;
+import com.example.demo.dto.QuallificationListByGender;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Quallification;
 import com.example.demo.repository.EmployeeRepository;
@@ -27,10 +28,11 @@ public class EmployeeService {
     private final QuallificationRepository quallificationRepository;
 
     public List<EmployeeDTO> getAllEmployees(){
-        List<Employee> employees =  employeeRepository.findAll();
+        List<Employee> employees =  employeeRepository.findAllEmployees();
 
         return employees.stream().map(this::convertToDto).collect(Collectors.toList());
     }
+
 
     public EmployeeDTO createEmployee(EmployeeDTO employeeDTO){
 
@@ -102,5 +104,9 @@ public class EmployeeService {
     public List<GenderEmployeeSum> countTotalNumberOfEmployeesByGender() {
         return employeeRepository.countTotalNumberOfEmployeesByGender();
 
+    }
+
+    public void fireEmployee(Long id) {
+        employeeRepository.fireEmployee(id);
     }
 }

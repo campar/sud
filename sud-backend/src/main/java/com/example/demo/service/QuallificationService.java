@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.dto.QuallificationListByGender;
+import com.example.demo.model.Employee;
 import com.example.demo.model.Quallification;
 import com.example.demo.repository.QuallificationRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +21,13 @@ public class QuallificationService {
 
         return quallifications;
     }
+
+
+    public List<QuallificationListByGender> getAlQuallificationsByGender(){
+        return quallificationRepository.listQuallificationsByGender();
+    }
+
+
+
 
 }

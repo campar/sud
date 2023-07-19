@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.dto.GenderEmployeeSum;
+import com.example.demo.dto.QuallificationListByGender;
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class EmployeeController {
     @DeleteMapping("/employee/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
     public void deleteEmployee(@PathVariable Long id){
-        employeeService.delete(id);
+        employeeService.fireEmployee(id);
     }
 
     @GetMapping("/statistics")
