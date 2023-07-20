@@ -1,18 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.dto.EmployeesGenderByPosition;
 import com.example.demo.dto.GenderEmployeeSum;
-import com.example.demo.dto.QuallificationListByGender;
-import com.example.demo.model.Employee;
+import com.example.demo.dto.EmployeesGenderByAgeRange;
 import com.example.demo.service.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.cglib.core.Local;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -46,5 +41,19 @@ public class EmployeeController {
     public List<GenderEmployeeSum> countTotalNumberOfEmployeesByGender(){
 
         return employeeService.countTotalNumberOfEmployeesByGender();
+    }
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/employee/age-range")
+    public List<EmployeesGenderByAgeRange> getAllQuallificationsByGender(){
+        return employeeService.listEmployeesGenderByAgeRange();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/employee/position")
+    public List<EmployeesGenderByPosition> listEmployeesGenderByPosition(){
+        return employeeService.listEmployeesGenderByPosition();
     }
 }

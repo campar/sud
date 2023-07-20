@@ -66,6 +66,9 @@ public class Employee {
     @Column(name="on_position", columnDefinition="tinyint(1) default 0")
     private Boolean onPosition;
 
+    @Column(name="employed_at")
+    private LocalDate employedAt;
+
     @ManyToOne
     @JoinColumn(name = "quallification_id", foreignKey = @ForeignKey(
             name = "fk__employee__quallification"

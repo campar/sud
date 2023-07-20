@@ -17,4 +17,7 @@ public class EmployeeDTO {
     private LocalDate dateOfBirth;
     private String quallification;
     private Integer age;
+    private LocalDate deletedAt;
+    private Boolean onPosition;
+    private LocalDate employedAt;
 }

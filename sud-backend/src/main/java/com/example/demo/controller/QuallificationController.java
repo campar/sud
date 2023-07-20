@@ -29,4 +29,6 @@ public class QuallificationController {
     public List<QuallificationListByGender> getAllQuallificationsByGender(){
         return quallificationService.getAlQuallificationsByGender();
     }
+
+
 }

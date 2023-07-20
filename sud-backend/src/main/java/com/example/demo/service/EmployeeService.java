@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.EmployeeDTO;
+import com.example.demo.dto.EmployeesGenderByPosition;
 import com.example.demo.dto.GenderEmployeeSum;
-import com.example.demo.dto.QuallificationListByGender;
+import com.example.demo.dto.EmployeesGenderByAgeRange;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Quallification;
 import com.example.demo.repository.EmployeeRepository;
@@ -15,7 +16,6 @@ import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,49 +41,64 @@ public class EmployeeService {
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setLastName(employeeDTO.getLastName());
 
-        String day = employeeDTO.getJmbg().substring(0,2);
-        String month = employeeDTO.getJmbg().substring(2,4);
-        String year = employeeDTO.getJmbg().substring(4,7);
+        LocalDate dateOfBirth = parseDateOfBirth(employeeDTO.getJmbg());
+        employee.setDateOfBirth(dateOfBirth);
+
+        String gender = determineGender(employeeDTO.getJmbg());
+        employee.setGender(gender);
+
+        Integer age = calculateEmployeeAge(employee);
+        employee.setAge(age);
+
+
+        Quallification quallification = quallificationRepository.findByName(employeeDTO.getQuallification());
+        employee.setQuallification(quallification);
+        employeeRepository.save(employee);
+
+
+
+
+
+        return convertToDto(employee);
+
+    }
+
+    public void delete(Long id) {
+        employeeRepository.deleteById(id);
+    }
+
+
+    private LocalDate parseDateOfBirth(String jmbg) {
+        String day = jmbg.substring(0, 2);
+        String month = jmbg.substring(2, 4);
+        String year = jmbg.substring(4, 7);
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("MMdd")
                 .optionalStart()
                 .appendValueReduced(ChronoField.YEAR, 3, 3, LocalDate.now().minusYears(100))
                 .optionalEnd()
                 .toFormatter();
+
         String date = month + day + year;
-        LocalDate formattedDate = LocalDate.parse(date, formatter);
-        employee.setDateOfBirth(formattedDate);
-
-        String gender = employeeDTO.getJmbg().substring(9,12);
-        Integer genderParsed = Integer.parseInt((gender));
-
-        if(genderParsed <= 499){
-            employee.setGender("Мушко");
-        }
-        else if(genderParsed >= 500 && genderParsed <= 999){
-            employee.setGender("Женско");
-        }
-        Quallification quallification = quallificationRepository.findByName(employeeDTO.getQuallification());
-
-        employee.setQuallification(quallification);
-
-
-
-        Integer yearOfBirth = employee.getDateOfBirth().getYear();
-        Integer currentYear =  Year.now().getValue();
-
-        employee.setAge(currentYear - yearOfBirth);
-
-        employeeRepository.save(employee);
-
-//        return employees.stream().map(this::convertToDto).collect(Collectors.toList());
-
-        return convertToDto(employee);
-//        return employee;
+        return LocalDate.parse(date, formatter);
     }
 
-    public void delete(Long id) {
-        employeeRepository.deleteById(id);
+    private String determineGender(String jmbg) {
+        String gender = jmbg.substring(9, 12);
+        Integer genderParsed = Integer.parseInt(gender);
+
+        if (genderParsed <= 499) {
+            return "Мушко";
+        }
+        return "Женско";
+    }
+
+
+    private Integer calculateEmployeeAge(Employee employee) {
+        Integer yearOfBirth = employee.getDateOfBirth().getYear();
+        Integer currentYear = Year.now().getValue();
+
+        return currentYear - yearOfBirth;
     }
 
     public EmployeeDTO convertToDto(Employee employee) {
@@ -96,7 +111,9 @@ public class EmployeeService {
         dto.setDateOfBirth(employee.getDateOfBirth());
         dto.setQuallification(employee.getQuallification().getName());
         dto.setAge(employee.getAge());
-
+        dto.setDeletedAt(employee.getDeletedAt());
+        dto.setOnPosition(employee.getOnPosition());
+        dto.setEmployedAt(employee.getEmployedAt());
         return dto;
     }
 
@@ -109,4 +126,17 @@ public class EmployeeService {
     public void fireEmployee(Long id) {
         employeeRepository.fireEmployee(id);
     }
+
+    public List<EmployeesGenderByAgeRange> listEmployeesGenderByAgeRange(){
+        return employeeRepository.listEmployeesGenderByAgeRange();
+    }
+
+    public List<EmployeesGenderByPosition> listEmployeesGenderByPosition(){
+        return employeeRepository.listEmployeesGenderByPosition();
+    }
+
+
+
+
+
 }
