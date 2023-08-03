@@ -30,7 +30,7 @@ import { EmployeeService } from './services/employee.service';
 
       <h4 style="margin-top:50px; margin-bottom:10px; font-weight:900px; font-size:16px;" class="mat-headline-6">Filtriraj po:</h4>
 
-  <mat-form-field appearance="outline">
+  <!-- <mat-form-field appearance="outline">
   <mat-label>Broju godina</mat-label>
   <input matInput (keyup)="applyFilter($any($event.target).value)" [(ngModel)]="testValue" />
   </mat-form-field>
@@ -47,7 +47,7 @@ import { EmployeeService } from './services/employee.service';
                Zensko
                </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
 
 
       <app-table

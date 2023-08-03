@@ -9,11 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
 import { TableComponent } from './components/table/table.component';
 import { FormComponent } from './components/form/form.component';
+import { YearDatepickerComponent} from './components/date-picker/year-datepicker.component'
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -23,15 +25,16 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    FormComponent
+    FormComponent,
+    YearDatepickerComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ReactiveFormsModule,
     NgxChartsModule,
     FormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule,
+    MatMomentDateModule,
+    MatDatepickerModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}

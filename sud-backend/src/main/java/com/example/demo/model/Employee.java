@@ -67,7 +67,7 @@ public class Employee {
     private Boolean onPosition;
 
     @Column(name="employed_at")
-    private LocalDate employedAt;
+    private Integer employedAt;
 
     @ManyToOne
     @JoinColumn(name = "quallification_id", foreignKey = @ForeignKey(

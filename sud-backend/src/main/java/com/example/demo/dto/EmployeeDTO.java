@@ -19,5 +19,5 @@ public class EmployeeDTO {
     private Integer age;
     private LocalDate deletedAt;
     private Boolean onPosition;
-    private LocalDate employedAt;
+    private Integer employedAt;
 }

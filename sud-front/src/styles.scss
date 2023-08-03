@@ -218,6 +218,16 @@ table {
 
 
 
+.year-picker {
+  .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  .mat-calendar-arrow {
+    display: none;
+  }
+}
+
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

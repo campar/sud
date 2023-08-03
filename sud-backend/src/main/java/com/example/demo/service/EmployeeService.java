@@ -40,6 +40,8 @@ public class EmployeeService {
         employee.setJmbg(employeeDTO.getJmbg());
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setLastName(employeeDTO.getLastName());
+        employee.setEmployedAt(employeeDTO.getEmployedAt());
+        employee.setOnPosition(employeeDTO.getOnPosition());
 
         LocalDate dateOfBirth = parseDateOfBirth(employeeDTO.getJmbg());
         employee.setDateOfBirth(dateOfBirth);

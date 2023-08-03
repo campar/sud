@@ -26,7 +26,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Modifying
     @Transactional
-    @Query("update Employee e set deletedAt = CURRENT_DATE " +
+    @Query("update Employee e set e.deletedAt = CURRENT_DATE " +
             "WHERE e.id = :id")
     void fireEmployee(@PathVariable("id") Long id);
 
@@ -46,7 +46,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 (SUM(g.male + g.female) / (SELECT COUNT(*) FROM Employee e) * 100) AS totalPercentage,
                 (g.male / (SELECT COUNT(*) FROM Employee e) * 100) AS malePercentage,
                 (g.female / (SELECT COUNT(*) FROM Employee e) * 100) AS femalePercentage)
-            FROM (SELECT
+             FROM (SELECT
                 CASE
                     WHEN age <= 20 
                         THEN '0-20'
