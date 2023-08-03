@@ -18,6 +18,7 @@ import * as moment from 'moment';
 
 import { Moment } from "moment/moment.d"
 import { MatDatepicker } from '@angular/material/datepicker';
+import { map } from 'rxjs';
 
 export const MY_FORMATS = {
   parse: {
@@ -51,31 +52,15 @@ export const MY_FORMATS = {
               >
             </section>
             <div class="gap"></div>
-            <mat-form-field (click)="_openDatepickerOnClick(dp)" style="cursor:pointer">
-    <mat-label style="cursor:pointer">Godina zaposlenja</mat-label>
-  <input
-    matInput
-    [matDatepicker]="dp"
-    formControlName="date"
-    [max]="maxDate"
-    [min]="minDate"
-    readonly
-
-    style="cursor:pointer"
-    [matDatepickerFilter]="myDateFilter"
-
-  />
-  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-  <mat-datepicker
-    #dp
-    startView="multi-year"
-    (yearSelected)="chosenYearHandler($event, dp)"
-    panelClass="year-picker"
-
-  >
-  </mat-datepicker>
-</mat-form-field>
-
+            <mat-form-field class="example-full-width">
+            <mat-label>Godina zaposlenja</mat-label>
+      <input matInput
+        type="number"
+       formControlName="date"
+       [max]="currentYear"
+       maxlength="4"
+       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+    </mat-form-field>
           </div>
           <div class="row">
 
@@ -138,7 +123,7 @@ export const MY_FORMATS = {
 export class FormComponent implements OnInit {
   isSubmitted = false;
 
-
+  currentYear = new Date().getFullYear();
 
   @Output() dataEvent = new EventEmitter<any>();
   @Input('apptable') apptable: any;
@@ -149,7 +134,7 @@ export class FormComponent implements OnInit {
     jmbg: [''],
     quallification: [''],
     onPosition: [false],
-    date:[moment()]
+    date:[new Date().getFullYear()]
   });
 
   constructor(
@@ -165,58 +150,16 @@ export class FormComponent implements OnInit {
     });
   }
   onSubmit() {
+        this.employeeService
+          .createEmployee(this.registerForm.value).pipe(map((data) =>{
+          }))
+          .subscribe((data) => {
+            console.log('POST Request is successful ', data);
+            this.dataEvent.emit(data);
+            this.apptable.table.renderRows();
+          });
 
-    console.log(this.registerForm.value);
-    // if (!this.registerForm.invalid) {
-    //   {
-    //     console.log(this.registerForm.value);
-
-    //     this.employeeService
-    //       .createEmployee(this.registerForm.value)
-    //       .subscribe((data) => {
-    //         console.log('POST Request is successful ', data);
-    //         this.dataEvent.emit(data);
-    //         this.apptable.table.renderRows();
-    //       });
-
-    //     this.registerForm.reset();
-    //     this.isSubmitted = false;
-    //   }
-    // } else {
-    //   this.isSubmitted = true;
-    // }
-  }
-
-
-
-  maxDate = moment().add(8, 'years');
-  minDate = moment().subtract(100, 'years');
-
-
-
-
-
-  chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.registerForm.value.date;
-
-    if(ctrlValue != null  || ctrlValue != undefined){
-      ctrlValue.year(normalizedYear.year());
-      this.registerForm.controls.date.setValue(ctrlValue);
-    }
-
-
-    datepicker.close();
-  }
-
-  _openDatepickerOnClick(datepicker: MatDatepicker<Moment>) {
-    console.log( this.registerForm.value)
-    if (!datepicker.opened) {
-      datepicker.open();
-    }
-  }
-
-  myDateFilter = (m: Moment | null): boolean => {
-    const year = (m || moment()).year();
-    return year <= moment().year();
-  };
+        this.registerForm.reset();
+        this.isSubmitted = false;
+      }
 }

@@ -85,7 +85,6 @@ export class AppComponent implements OnInit{
   constructor(private employeeService: EmployeeService) {}
   ngOnInit() {
     this.employeeService.getEmployees().subscribe((value) => {
-      console.log(value);
       this.employees = value;
       this.filteredEmployees = this.employees;
     });
@@ -94,19 +93,15 @@ export class AppComponent implements OnInit{
       .getTotalNumberOfEmployeesByGender()
       .subscribe((value) => {
         this.totalNumOfEmployees = value;
-        console.log(this.totalNumOfEmployees)
       });
-    console.log('TTTTEEESSSTTT')
   }
 
   receieveData(event: any) {
-    console.log(event);
     this.employees.push(event);
   }
 
   deletedEmployee(empl: any) {
     const copyEmployees = this.employees.filter((employee: any) => {
-      console.log(empl.id);
       return employee.id !== empl.id;
     });
 
@@ -115,7 +110,6 @@ export class AppComponent implements OnInit{
 
   applyFilter(filterValue: string) {
 
-    console.log(this.employees);
     // this.employees.filter = filterValue.trim().toLowerCase();
 
     if(filterValue === ''){
@@ -127,7 +121,6 @@ export class AppComponent implements OnInit{
       return data.age === parseInt(this.testValue) &&  data.gender === "Мушко";
     });
 
-    console.log(this.filteredEmployees);
     // this.employees.filter = Object.assign([],copy);
   }
 }
