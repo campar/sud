@@ -10,7 +10,7 @@ import lombok.Setter;
 public class EmployeesGenderByAgeRange {
 
     private String ageRange;
-    private Long age;
+    private Long male;
     private Long female;
     private Long total;
     private Long totalPercentage;

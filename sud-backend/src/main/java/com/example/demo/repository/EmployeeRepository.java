@@ -43,9 +43,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 g.male,
                 g.female,
                 SUM(g.male + g.female) AS total,
-                (SUM(g.male + g.female) / (SELECT COUNT(*) FROM Employee e) * 100) AS totalPercentage,
-                (g.male / (SELECT COUNT(*) FROM Employee e) * 100) AS malePercentage,
-                (g.female / (SELECT COUNT(*) FROM Employee e) * 100) AS femalePercentage)
+                (SUM(g.male + g.female) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS totalPercentage,
+                (g.male / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS malePercentage,
+                (g.female / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS femalePercentage)
              FROM (SELECT
                 CASE
                     WHEN age <= 20 
@@ -112,6 +112,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                         ELSE 0
                     END) AS female
                 FROM Employee e
+                WHERE e.deletedAt IS NULL
                 GROUP BY ageRange
                 ORDER BY ageRange
             ) AS g
@@ -126,11 +127,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                   COUNT(e) as total, 
                   SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) as male, 
                   SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) as female, 
-                  (COUNT(e) / (SELECT COUNT(e) FROM Employee e) * 100) as totalPercentage, 
-                  (SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e) * 100) as malePercentage, 
-                  (SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e) * 100) as femalePercentage 
+                  (COUNT(e) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as totalPercentage, 
+                  (SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as malePercentage, 
+                  (SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as femalePercentage 
            )
            FROM Employee e 
+           WHERE e.deletedAt IS NULL
            GROUP BY e.onPosition
        """)
     List<EmployeesGenderByPosition> listEmployeesGenderByPosition();

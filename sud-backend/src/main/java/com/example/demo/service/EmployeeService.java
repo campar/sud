@@ -55,6 +55,10 @@ public class EmployeeService {
 
         Quallification quallification = quallificationRepository.findByName(employeeDTO.getQuallification());
         employee.setQuallification(quallification);
+
+
+        employee.setEmployedAt(employeeDTO.getEmployedAt());
+
         employeeRepository.save(employee);
 
 

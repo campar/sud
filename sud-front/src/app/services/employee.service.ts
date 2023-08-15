@@ -35,4 +35,9 @@ export class EmployeeService {
   getTotalNumberOfEmployeesByGender(){
     return this.http.get(this.API_URL + "/statistics");
   }
+
+
+  getEmployeesGenderByAgeRange(){
+    return this.http.get(this.API_URL + '/employee/age-range')
+  }
 }

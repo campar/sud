@@ -56,7 +56,7 @@ export const MY_FORMATS = {
             <mat-label>Godina zaposlenja</mat-label>
       <input matInput
         type="number"
-       formControlName="date"
+       formControlName="employedAt"
        [max]="currentYear"
        maxlength="4"
        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
@@ -134,7 +134,7 @@ export class FormComponent implements OnInit {
     jmbg: [''],
     quallification: [''],
     onPosition: [false],
-    date:[new Date().getFullYear()]
+    employedAt:[new Date().getFullYear()]
   });
 
   constructor(
@@ -151,15 +151,14 @@ export class FormComponent implements OnInit {
   }
   onSubmit() {
         this.employeeService
-          .createEmployee(this.registerForm.value).pipe(map((data) =>{
-          }))
+          .createEmployee(this.registerForm.value)
           .subscribe((data) => {
             console.log('POST Request is successful ', data);
             this.dataEvent.emit(data);
             this.apptable.table.renderRows();
           });
 
-        this.registerForm.reset();
+        this.registerForm.reset({employedAt:new Date().getFullYear(), onPosition: false});
         this.isSubmitted = false;
       }
 }

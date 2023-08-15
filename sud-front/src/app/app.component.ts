@@ -55,6 +55,8 @@ import { EmployeeService } from './services/employee.service';
         #apptable
         (onDelete)="deletedEmployee($event)"
       ></app-table>
+
+      <app-table-employees-gender></app-table-employees-gender>
     </div>
   `,
   styleUrls: ['./app.component.scss'],

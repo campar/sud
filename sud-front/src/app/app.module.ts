@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { TableEmployeesGenderComponent } from './components/table/table-employees-gender.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     AppComponent,
     TableComponent,
     FormComponent,
-    YearDatepickerComponent
+    YearDatepickerComponent,
+    TableEmployeesGenderComponent
   ],
   imports: [
     BrowserModule,
