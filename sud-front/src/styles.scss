@@ -67,12 +67,15 @@ a.nostyle:visited {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 10000;
+}
 
 .container{
   width:900px;
   margin: 0 auto;
-
+  padding:64px 0;
 }
 
 

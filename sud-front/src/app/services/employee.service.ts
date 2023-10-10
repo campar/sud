@@ -40,4 +40,12 @@ export class EmployeeService {
   getEmployeesGenderByAgeRange(){
     return this.http.get(this.API_URL + '/employee/age-range')
   }
+
+  getEmployeesGenderByPosition(){
+    return this.http.get(this.API_URL + '/employee/position')
+  }
+
+  getEmployeesGenderByQuallification(){
+    return this.http.get(this.API_URL + '/quallifications/gender')
+  }
 }

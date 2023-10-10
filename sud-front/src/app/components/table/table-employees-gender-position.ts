@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 
+
 @Component({
-  selector: 'app-table-employees-gender',
-  template: `<table mat-table [dataSource]="ageStructures" class="table">
+  selector: 'app-table-employees-gender-position',
+  template: `<table mat-table [dataSource]="employeesPosition" class="table">
     <!-- Position Column -->
-    <ng-container matColumnDef="ageRange">
-      <th mat-header-cell *matHeaderCellDef>Strosna Struktura</th>
+    <ng-container matColumnDef="onPosition">
+      <th mat-header-cell *matHeaderCellDef>Na poziciji</th>
       <td mat-cell *matCellDef="let ageStructure">
-        Od {{ ageStructure.ageRange }} godina zivota
+        <span *ngIf="ageStructure.onPosition;  else templateName ">
+              Lica Na Polozajima
+        </span>
+        <ng-template #templateName>
+           Lica na izvrsilackim radnim mestima
+        </ng-template>
+       
       </td>
     </ng-container>
     <ng-container matColumnDef="total">
@@ -34,16 +41,16 @@ import { EmployeeService } from 'src/app/services/employee.service';
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>`,
 })
-export class TableEmployeesGenderComponent {
-  ageStructures = [];
-  displayedColumns: string[] = ['ageRange', 'total', 'female', 'male'];
+export class TableEmployeesGenderPositionComponent {
+  employeesPosition = [];
+  displayedColumns: string[] = ['onPosition', 'total', 'female', 'male'];
 
   constructor(private employeeService: EmployeeService) {}
   ngOnInit() {
     this.employeeService
-      .getEmployeesGenderByAgeRange()
+      .getEmployeesGenderByPosition()
       .subscribe((data: any) => {
-        this.ageStructures = data;
+        this.employeesPosition = data;
       });
   }
 }

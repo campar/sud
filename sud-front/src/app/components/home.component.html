@@ -1,0 +1,47 @@
+<div class="mini-wrapper">
+      
+
+  <div style="width:50%">
+
+
+<ngx-charts-advanced-pie-chart
+  [results]="totalNumOfEmployees"
+
+  [scheme]="colorScheme"
+  label="Ukupan broj zaposlenih"
+>
+</ngx-charts-advanced-pie-chart>
+</div>
+<app-form
+  (dataEvent)="receieveData($event)"
+  [apptable]="apptable"
+></app-form>
+</div>
+
+<!-- <h4 style="margin-top:50px; margin-bottom:10px; font-weight:900px; font-size:16px;" class="mat-headline-6">Filtriraj po:</h4> -->
+
+<!-- <mat-form-field appearance="outline">
+<mat-label>Broju godina</mat-label>
+<input matInput (keyup)="applyFilter($any($event.target).value)" [(ngModel)]="testValue" />
+</mat-form-field>
+<mat-form-field appearance="outline" style='margin-left:20px'>
+        <mat-label>Polu</mat-label>
+        <mat-select formControlName="quallification" >
+        <mat-option>-</mat-option>
+          <mat-option
+          value="Zensko">
+          Musko
+          </mat-option>
+          <mat-option
+           value="Musko">
+         Zensko
+         </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+
+<app-table
+  [employees]="filteredEmployees"
+  #apptable
+  (onDelete)="deletedEmployee($event)"
+></app-table>

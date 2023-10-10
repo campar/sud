@@ -10,14 +10,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
 import { TableComponent } from './components/table/table.component';
 import { FormComponent } from './components/form/form.component';
-import { YearDatepickerComponent} from './components/date-picker/year-datepicker.component'
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
@@ -29,14 +29,23 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TableEmployeesGenderComponent } from './components/table/table-employees-gender.component';
 
+import { HomeComponent } from './components/home.component';
+import { TableEmployeesGenderPositionComponent } from './components/table/table-employees-gender-position';
+import { QuallificationGenderComponent } from './components/table/quallification-gender';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { TableEmployeesGenderEmployedAtComponent } from './components/table/table-employees-gender-employed-at';
+import { BackendInterceptor } from './interceptor/backend.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     FormComponent,
-    YearDatepickerComponent,
-    TableEmployeesGenderComponent
+    TableEmployeesGenderComponent,
+    TableEmployeesGenderPositionComponent,
+    QuallificationGenderComponent,
+    HomeComponent,
+    TableEmployeesGenderEmployedAtComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +62,20 @@ import { TableEmployeesGenderComponent } from './components/table/table-employee
     MatToolbarModule,
     MatCheckboxModule,
     MatMomentDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {
+      provide: ErrorStateMatcher, 
+      useClass: ShowOnDirtyErrorStateMatcher
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BackendInterceptor,
+      multi: true,
+      },
   ],
   bootstrap: [AppComponent]
 })

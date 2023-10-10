@@ -4,14 +4,19 @@ import {
   Input,
   Output,
   ViewChild,
+  OnInit
 } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-table',
   template: `
-    <table mat-table [dataSource]="employees" class="table">
+
+
+    <table mat-table [dataSource]="dataSource" class="table">
       <!-- Position Column -->
       <ng-container matColumnDef="jmbg">
         <th mat-header-cell *matHeaderCellDef>ЈМБГ</th>
@@ -55,22 +60,28 @@ import { MatTable } from '@angular/material/table';
       <ng-container matColumnDef="del">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let employee">
-          <button
+          <!--  <button
             mat-stroked-button
-            color="warn"
+        color="warn"
             (click)="deleteRecord(employee)"
           >
             Obrisi
-          </button>
+          </button> -->  
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <mat-paginator 
+    [pageSizeOptions]="[20, 50, 100]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements">
+</mat-paginator>
+
   `,
 })
-export class TableComponent {
+export class TableComponent  {
   displayedColumns: string[] = [
     'jmbg',
     'firstName',
@@ -81,20 +92,48 @@ export class TableComponent {
     'del',
   ];
 
-  @Input() employees: any;
+  private _employees: any;
+  dataSource:any;
 
+  get employees():any{
+    return this._employees;
+  }
+
+  @Input() set employees(data:any){
+    this._employees = data;
+  
+    this.dataSource = new MatTableDataSource(this._employees);
+    this.dataSource.paginator = this.paginator;
+  };
+
+
+ 
+ 
   @Output() onDelete = new EventEmitter();
 
   @ViewChild(MatTable) table: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  constructor(private employeeService: EmployeeService) {}
+
+
+
+  constructor(private employeeService: EmployeeService) {
+    
+  }
 
   deleteRecord(empl: any) {
     this.onDelete.emit(empl);
     this.employeeService.deleteEmployee(empl.id).subscribe();
-
+    location.reload();
 
   }
 
+  ngAfterViewInit(){
+      if(this.paginator){
+        this.paginator._intl.itemsPerPageLabel = '';
+      }
 
 }
+}
+
+

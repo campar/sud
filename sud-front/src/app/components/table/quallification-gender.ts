@@ -1,30 +1,33 @@
+
 import { Component } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 
+
 @Component({
-  selector: 'app-table-employees-gender',
-  template: `<table mat-table [dataSource]="ageStructures" class="table">
+  selector: 'app-table-employees-gender-position',
+  template: `<table mat-table [dataSource]="employeesQuallification" class="table">
     <!-- Position Column -->
-    <ng-container matColumnDef="ageRange">
-      <th mat-header-cell *matHeaderCellDef>Strosna Struktura</th>
+    <ng-container matColumnDef="quallification">
+      <th mat-header-cell *matHeaderCellDef>Strucna Sprema</th>
       <td mat-cell *matCellDef="let ageStructure">
-        Od {{ ageStructure.ageRange }} godina zivota
+        {{ageStructure.name}}
+       
       </td>
     </ng-container>
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Ukupno</th>
+      <th mat-header-cell *matHeaderCellDef>Ukupno broj i procenat zaposlenih</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.total }} ({{ ageStructure.totalPercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="male">
-      <th mat-header-cell *matHeaderCellDef>Muskaraca</th>
+      <th mat-header-cell *matHeaderCellDef>Ukupno Muskaraca</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.male }} ({{ ageStructure.malePercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="female">
-      <th mat-header-cell *matHeaderCellDef>Zena</th>
+      <th mat-header-cell *matHeaderCellDef>Ukupno Zena</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.female }} ({{ ageStructure.femalePercentage }}%)
       </td>
@@ -34,16 +37,16 @@ import { EmployeeService } from 'src/app/services/employee.service';
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>`,
 })
-export class TableEmployeesGenderComponent {
-  ageStructures = [];
-  displayedColumns: string[] = ['ageRange', 'total', 'female', 'male'];
+export class QuallificationGenderComponent {
+  employeesQuallification = [];
+  displayedColumns: string[] = ['quallification', 'total', 'female', 'male'];
 
   constructor(private employeeService: EmployeeService) {}
   ngOnInit() {
     this.employeeService
-      .getEmployeesGenderByAgeRange()
+      .getEmployeesGenderByQuallification()
       .subscribe((data: any) => {
-        this.ageStructures = data;
+        this.employeesQuallification = data;
       });
   }
 }

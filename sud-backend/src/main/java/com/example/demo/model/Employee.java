@@ -41,8 +41,7 @@ public class Employee {
     //* 90-99 – Autonomna Pokrajina Kosovo i Metohija
 
 //    https://web.archive.org/web/20110812183325/http://nultibitovi.net/blog/jedinstveni-mati-ni-broj-gra-anina
-    @Column(name = "jmbg", columnDefinition="CHAR(13)")
-
+    @Column(name = "jmbg", columnDefinition="CHAR(13)", unique=true)
     private String jmbg;
 
     @Column(name="first_name")

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
 
 
 import {
@@ -12,13 +14,6 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
-
-import * as moment from 'moment';
-
-
-import { Moment } from "moment/moment.d"
-import { MatDatepicker } from '@angular/material/datepicker';
-import { map } from 'rxjs';
 
 export const MY_FORMATS = {
   parse: {
@@ -42,28 +37,30 @@ export const MY_FORMATS = {
         #documentEditForm="ngForm"
         [formGroup]="registerForm"
       >
-
         <div class="form-wrapper">
-          <div class="row" style="align-items:center; justify-content:space-between">
-
-          <section class="example-section" style="padding-bottom:22px;">
+          <div
+            class="row"
+            style="align-items:center; justify-content:space-between"
+          >
+            <section class="example-section" style="padding-bottom:22px;">
               <mat-checkbox class="example-margin" formControlName="onPosition"
                 >Sudija</mat-checkbox
               >
             </section>
             <div class="gap"></div>
             <mat-form-field class="example-full-width">
-            <mat-label>Godina zaposlenja</mat-label>
-      <input matInput
-        type="number"
-       formControlName="employedAt"
-       [max]="currentYear"
-       maxlength="4"
-       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-    </mat-form-field>
+              <mat-label>Godina zaposlenja</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="employedAt"
+                [max]="currentYear"
+                maxlength="4"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              />
+            </mat-form-field>
           </div>
           <div class="row">
-
             <mat-form-field class="example-full-width">
               <mat-label>Име</mat-label>
               <input matInput formControlName="firstName" />
@@ -84,7 +81,9 @@ export const MY_FORMATS = {
                 type="text"
                 oninput="this.value=this.value.replace(/[^0-9]/g,'');"
               />
-              <mat-hint>13 цифара</mat-hint>
+             <mat-error *ngIf="form.jmbg?.errors?.['wrongChecksSum']">Neispravan JMBG</mat-error>
+             <mat-hint *ngIf="form.jmbg?.errors?.['minlength']">jmbg sadrži 13 cifara</mat-hint>
+
             </mat-form-field>
             <div class="gap"></div>
             <mat-form-field>
@@ -107,18 +106,15 @@ export const MY_FORMATS = {
       </form>
     </div>
   `,
-    providers: [
-      // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-      // application's root module. We provide it at the component level here, due to limitations of
-      // our example generation script.
-      {
-        provide: DateAdapter,
-        useClass: MomentDateAdapter,
-        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-      },
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
 
-      { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    ],
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class FormComponent implements OnInit {
   isSubmitted = false;
@@ -129,12 +125,12 @@ export class FormComponent implements OnInit {
   @Input('apptable') apptable: any;
 
   registerForm = this.fb.group({
-    firstName: [''],
-    lastName: [''],
-    jmbg: [''],
-    quallification: [''],
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    jmbg: ['', [Validators.required, JmbgChecksum, Validators.minLength(13), Validators.maxLength(13)]],
+    quallification: ['', [Validators.required]],
     onPosition: [false],
-    employedAt:[new Date().getFullYear()]
+    employedAt: [new Date().getFullYear(), [Validators.required]],
   });
 
   constructor(
@@ -144,21 +140,63 @@ export class FormComponent implements OnInit {
 
   quallifications: any = [];
 
+  get form() {
+    return this.registerForm.controls;
+  }
+  
+
   ngOnInit() {
     this.employeeService.getAllQuallifications().subscribe((value) => {
       this.quallifications = value;
     });
   }
   onSubmit() {
-        this.employeeService
-          .createEmployee(this.registerForm.value)
-          .subscribe((data) => {
-            console.log('POST Request is successful ', data);
-            this.dataEvent.emit(data);
-            this.apptable.table.renderRows();
-          });
+    if (this.registerForm.valid) {
+      this.employeeService
+        .createEmployee(this.registerForm.value)
+        .subscribe((data) => {
+          console.log('POST Request is successful ', data);
+          this.dataEvent.emit(data);
+          this.apptable.table.renderRows();
+        });
 
-        this.registerForm.reset({employedAt:new Date().getFullYear(), onPosition: false});
-        this.isSubmitted = false;
-      }
+      this.registerForm.reset({
+        employedAt: new Date().getFullYear(),
+        onPosition: false,
+      });
+      this.isSubmitted = false;
+    }
+  }
 }
+
+
+
+
+export function JmbgChecksum(control: AbstractControl): ValidationErrors | null {
+  const b1 = parseInt(control.value[0]);
+  const b2 = parseInt(control.value[1]);
+  const b3 = parseInt(control.value[2]);
+  const b4 = parseInt(control.value[3]);
+  const b5 = parseInt(control.value[4]);
+  const b6 = parseInt(control.value[5]);
+  const b7 = parseInt(control.value[6]);
+  const b8 = parseInt(control.value[7]);
+  const b9 = parseInt(control.value[8]);
+  const b10 = parseInt(control.value[9]);
+  const b11 = parseInt(control.value[10]);
+  const b12 = parseInt(control.value[11]);
+  const b13 = parseInt(control.value[12]); //this is checksum number
+
+  const m = 7 * (b1 + b7) + 6 * (b2 + b8) + 5 * (b3 + b9) + 4 * (b4 + b10) + 3 * (b5 + b11) + 2 * (b6 + b12);
+  const controlNumber = 11 - ((m - (11 * Math.floor(m / 11))) % 11);
+
+  // If m is between 1 and 9, the number b13(checksum) is the same as the number m
+  // If m is 10 or 11 b13(checksum) becomes 0
+
+  if (controlNumber !== b13 && control.value.length === 13) {
+    return { wrongChecksSum: true };
+  }
+  return null;
+}
+
+

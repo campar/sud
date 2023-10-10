@@ -1,8 +1,9 @@
+
 import { Component } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
-  selector: 'app-table-employees-gender',
+  selector: 'app-table-employees-gender-employed-at',
   template: `<table mat-table [dataSource]="ageStructures" class="table">
     <!-- Position Column -->
     <ng-container matColumnDef="ageRange">
@@ -34,7 +35,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>`,
 })
-export class TableEmployeesGenderComponent {
+export class TableEmployeesGenderEmployedAtComponent {
   ageStructures = [];
   displayedColumns: string[] = ['ageRange', 'total', 'female', 'male'];
 
