@@ -6,25 +6,25 @@ import { EmployeeService } from 'src/app/services/employee.service';
   template: `<table mat-table [dataSource]="ageStructures" class="table">
     <!-- Position Column -->
     <ng-container matColumnDef="ageRange">
-      <th mat-header-cell *matHeaderCellDef>Strosna Struktura</th>
+      <th mat-header-cell *matHeaderCellDef>Стросна Структура</th>
       <td mat-cell *matCellDef="let ageStructure">
-        Od {{ ageStructure.ageRange }} godina zivota
+        Od {{ ageStructure.ageRange }} година живота
       </td>
     </ng-container>
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Ukupno</th>
+      <th mat-header-cell *matHeaderCellDef>Укупно</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.total }} ({{ ageStructure.totalPercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="male">
-      <th mat-header-cell *matHeaderCellDef>Muskaraca</th>
+      <th mat-header-cell *matHeaderCellDef>Мушкараца</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.male }} ({{ ageStructure.malePercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="female">
-      <th mat-header-cell *matHeaderCellDef>Zena</th>
+      <th mat-header-cell *matHeaderCellDef>Жена</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.female }} ({{ ageStructure.femalePercentage }}%)
       </td>

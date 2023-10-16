@@ -7,31 +7,31 @@ import { EmployeeService } from 'src/app/services/employee.service';
   template: `<table mat-table [dataSource]="employeesPosition" class="table">
     <!-- Position Column -->
     <ng-container matColumnDef="onPosition">
-      <th mat-header-cell *matHeaderCellDef>Na poziciji</th>
+      <th mat-header-cell *matHeaderCellDef>На позицији</th>
       <td mat-cell *matCellDef="let ageStructure">
         <span *ngIf="ageStructure.onPosition;  else templateName ">
-              Lica Na Polozajima
+        Лица На Положајима
         </span>
         <ng-template #templateName>
-           Lica na izvrsilackim radnim mestima
+        Лица на изврсилацким радним местима
         </ng-template>
        
       </td>
     </ng-container>
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Ukupno</th>
+      <th mat-header-cell *matHeaderCellDef>Укупно</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.total }} ({{ ageStructure.totalPercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="male">
-      <th mat-header-cell *matHeaderCellDef>Muskaraca</th>
+      <th mat-header-cell *matHeaderCellDef>Мушкараца</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.male }} ({{ ageStructure.malePercentage }}%)
       </td>
     </ng-container>
     <ng-container matColumnDef="female">
-      <th mat-header-cell *matHeaderCellDef>Zena</th>
+      <th mat-header-cell *matHeaderCellDef>Жена</th>
       <td mat-cell *matCellDef="let ageStructure">
       {{ ageStructure.female }} ({{ ageStructure.femalePercentage }}%)
       </td>

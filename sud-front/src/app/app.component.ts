@@ -8,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 
 
     <mat-toolbar style="position:fixed; z-index:9999">
-        <a [routerLink] = "'/'">Pocetna</a>
+        <a [routerLink] = "'/'">Почетна</a>
         &nbsp;  &nbsp;
-      <a [routerLink] = "'/starosna-struktura'">2)Starosna Struktura </a>
+      <a [routerLink] = "'/starosna-struktura'">2)Старосна Структура </a>
       &nbsp;   &nbsp;
-      <a [routerLink] = "'/strucna-sprema'">3)Strucna Sprema Zaposlenih </a>
+      <a [routerLink] = "'/strucna-sprema'">3)Стручна Спрема Запослених </a>
       &nbsp;   &nbsp;
-      <a [routerLink] = "'/pozicija-zaposlenih'"> 4)Procenat Zaposlenih Po Poziciji </a>
+      <a [routerLink] = "'/pozicija-zaposlenih'"> 4)Проценат Запослених По Позицији</a>
 
 
   </mat-toolbar>

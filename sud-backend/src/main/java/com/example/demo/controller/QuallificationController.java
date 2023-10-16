@@ -17,14 +17,12 @@ public class QuallificationController {
 
     private final QuallificationService quallificationService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/quallifications")
     public List<Quallification> getAllQuallifications(){
         return quallificationService.getAllQuallifications();
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/quallifications/gender")
     public List<QuallificationListByGender> getAllQuallificationsByGender(){
         return quallificationService.getAlQuallificationsByGender();

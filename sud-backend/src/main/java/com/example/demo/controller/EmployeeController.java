@@ -21,14 +21,12 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/employee")
-    @CrossOrigin(origins = "http://localhost:4200")
     public List<EmployeeDTO> getAllEmployees(){
 
        return employeeService.getAllEmployees();
     }
 
     @PostMapping("/employee")
-    @CrossOrigin(origins = "http://localhost:4200")
     public EmployeeDTO createEmployee(@RequestBody EmployeeDTO employeeDTO){
 
         if (employeeDTO.getJmbg() != null) {
@@ -43,19 +41,16 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteEmployee(@PathVariable Long id){
         employeeService.fireEmployee(id);
     }
 
     @GetMapping("/statistics")
-    @CrossOrigin(origins = "http://localhost:4200")
     public List<GenderEmployeeSum> countTotalNumberOfEmployeesByGender(){
 
         return employeeService.countTotalNumberOfEmployeesByGender();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/employee/age-range" )
     public List<EmployeesGenderByAgeRange> getAllQuallificationsByGender(@RequestParam(required = false) Integer employedAt){
         if(employedAt != null){
@@ -64,7 +59,6 @@ public class EmployeeController {
         return employeeService.listEmployeesGenderByAgeRange();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/employee/position")
     public List<EmployeesGenderByPosition> listEmployeesGenderByPosition(){
         return employeeService.listEmployeesGenderByPosition();
