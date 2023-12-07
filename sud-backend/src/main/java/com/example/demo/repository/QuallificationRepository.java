@@ -27,9 +27,9 @@ public interface QuallificationRepository  extends JpaRepository<Quallification,
                 "WHEN e.gender = 'Женско' " +
                     "THEN 1 ELSE 0 " +
                 "END), " +
-            "(COUNT(*) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), " +
-            "(SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL)) * 100, " +
-            "(SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL)) * 100) " +
+            "ROUND((CAST(COUNT(*) AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2), " +
+            "ROUND((CAST(SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL)) * 100, 2), " +
+            "ROUND((CAST(SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL)) * 100, 2)) " +
             "FROM Employee e " +
             "JOIN e.quallification q " +
             "WHERE e.deletedAt IS NULL " +

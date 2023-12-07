@@ -13,7 +13,7 @@ public class EmployeesGenderByPosition {
     private Long total;
     private Long male;
     private Long female;
-    private Long totalPercentange;
-    private Long malePercentage;
-    private Long femalePercentage;
+    private Double totalPercentage;
+    private Double malePercentage;
+    private Double femalePercentage;
 }

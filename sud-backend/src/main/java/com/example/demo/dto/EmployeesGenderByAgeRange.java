@@ -13,7 +13,7 @@ public class EmployeesGenderByAgeRange {
     private Long male;
     private Long female;
     private Long total;
-    private Long totalPercentage;
-    private Long malePercentage;
-    private Long femalePercentage;
+    private Double totalPercentage;
+    private Double malePercentage;
+    private Double femalePercentage;
 }

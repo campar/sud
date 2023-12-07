@@ -14,9 +14,9 @@ public class QuallificationListByGender {
     private Long total;
     private Long male;
     private Long female;
-    private Long totalPercentage;
-    private Long malePercentage;
-    private Long femalePercentage;
+    private Double totalPercentage;
+    private Double malePercentage;
+    private Double femalePercentage;
 
 
 }

@@ -50,9 +50,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 g.male,
                 g.female,
                 SUM(g.male + g.female) AS total,
-                (SUM(g.male + g.female) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS totalPercentage,
-                (g.male / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS malePercentage,
-                (g.female / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS femalePercentage)
+                ROUND((CAST(SUM(g.male + g.female) AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2),
+                ROUND((CAST(g.male AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) ,
+                ROUND((CAST(g.female AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2))
              FROM (SELECT
                 CASE
                     WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
@@ -129,19 +129,19 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 
     @Query("""
-           SELECT new com.example.demo.dto.EmployeesGenderByPosition(
-                  e.onPosition, 
-                  COUNT(e) as total, 
-                  SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) as male, 
-                  SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) as female, 
-                  (COUNT(e) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as totalPercentage, 
-                  (SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as malePercentage, 
-                  (SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100) as femalePercentage 
-           )
-           FROM Employee e 
-           WHERE e.deletedAt IS NULL
-           GROUP BY e.onPosition
-       """)
+       SELECT new com.example.demo.dto.EmployeesGenderByPosition(
+              e.onPosition, 
+              COUNT(e) as total, 
+              SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) as male, 
+              SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) as female, 
+              ROUND((CAST(COUNT(e) AS DOUBLE) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) as totalPercentage, 
+              ROUND((CAST(SUM(CASE WHEN e.gender = 'Мушко' THEN 1 ELSE 0 END) AS DOUBLE) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) as malePercentage, 
+              ROUND((CAST(SUM(CASE WHEN e.gender = 'Женско' THEN 1 ELSE 0 END) AS DOUBLE) / (SELECT COUNT(e) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) as femalePercentage 
+       )
+       FROM Employee e 
+       WHERE e.deletedAt IS NULL
+       GROUP BY e.onPosition
+   """)
     List<EmployeesGenderByPosition> listEmployeesGenderByPosition();
 
 
@@ -151,9 +151,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 g.male,
                 g.female,
                 SUM(g.male + g.female) AS total,
-                (SUM(g.male + g.female) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS totalPercentage,
-                (g.male / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS malePercentage,
-                (g.female / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS femalePercentage)
+                ROUND((CAST(SUM(g.male + g.female) AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) AS totalPercentage,
+                ROUND((CAST(g.male AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) AS malePercentage,
+                ROUND((CAST(g.female AS DOUBLE) / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100), 2) AS femalePercentage)
              FROM (SELECT
                 CASE
                     WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
