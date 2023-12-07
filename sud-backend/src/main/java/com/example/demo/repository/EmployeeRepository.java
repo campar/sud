@@ -55,40 +55,40 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 (g.female / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS femalePercentage)
              FROM (SELECT
                 CASE
-                    WHEN age <= 20 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                         THEN '0-20'
-                    WHEN age BETWEEN 21 AND 30 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                         THEN '21-30'
-                    WHEN age BETWEEN 31 AND 40 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                         THEN '31-40'
-                    WHEN age BETWEEN 41 AND 50 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                         THEN '41-50'
-                    WHEN age BETWEEN 51 AND 60 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                         THEN '51-60'
-                    WHEN age BETWEEN 61 AND 70 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                         THEN '61-70'
-                    WHEN age IS NULL 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                         THEN '(NULL)'
                 END AS ageRange,
                 SUM(CASE
                     WHEN gender = 'Мушко' 
                         THEN
                             CASE
-                                WHEN age <= 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                                     THEN 1
-                                WHEN age BETWEEN 11 AND 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 11 AND 20 
                                     THEN 1
-                                WHEN age BETWEEN 21 AND 30 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                                     THEN 1
-                                WHEN age BETWEEN 31 AND 40 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                                     THEN 1
-                                WHEN age BETWEEN 41 AND 50 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                                     THEN 1
-                                WHEN age BETWEEN 51 AND 60 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                                     THEN 1
-                                WHEN age BETWEEN 61 AND 70 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                                     THEN 1
-                                WHEN age IS NULL 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                                     THEN 0
                                 ELSE 0
                             END
@@ -98,21 +98,21 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                     WHEN gender = 'Женско' 
                         THEN
                             CASE
-                                WHEN age <= 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                                     THEN 1
-                                WHEN age BETWEEN 11 AND 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 11 AND 20 
                                     THEN 1
-                                WHEN age BETWEEN 21 AND 30 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                                     THEN 1
-                                WHEN age BETWEEN 31 AND 40 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                                     THEN 1
-                                WHEN age BETWEEN 41 AND 50 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                                     THEN 1
-                                WHEN age BETWEEN 51 AND 60 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                                     THEN 1
-                                WHEN age BETWEEN 61 AND 70 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                                     THEN 1
-                                WHEN age IS NULL 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                                     THEN 0
                                 ELSE 0
                             END
@@ -156,40 +156,40 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                 (g.female / (SELECT COUNT(*) FROM Employee e WHERE e.deletedAt IS NULL) * 100) AS femalePercentage)
              FROM (SELECT
                 CASE
-                    WHEN age <= 20 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                         THEN '0-20'
-                    WHEN age BETWEEN 21 AND 30 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                         THEN '21-30'
-                    WHEN age BETWEEN 31 AND 40 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                         THEN '31-40'
-                    WHEN age BETWEEN 41 AND 50 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                         THEN '41-50'
-                    WHEN age BETWEEN 51 AND 60 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                         THEN '51-60'
-                    WHEN age BETWEEN 61 AND 70 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                         THEN '61-70'
-                    WHEN age IS NULL 
+                    WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                         THEN '(NULL)'
                 END AS ageRange,
                 SUM(CASE
                     WHEN gender = 'Мушко' 
                         THEN
                             CASE
-                                WHEN age <= 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                                     THEN 1
-                                WHEN age BETWEEN 11 AND 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 11 AND 20 
                                     THEN 1
-                                WHEN age BETWEEN 21 AND 30 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                                     THEN 1
-                                WHEN age BETWEEN 31 AND 40 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                                     THEN 1
-                                WHEN age BETWEEN 41 AND 50 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                                     THEN 1
-                                WHEN age BETWEEN 51 AND 60 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                                     THEN 1
-                                WHEN age BETWEEN 61 AND 70 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                                     THEN 1
-                                WHEN age IS NULL 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                                     THEN 0
                                 ELSE 0
                             END
@@ -199,21 +199,21 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
                     WHEN gender = 'Женско' 
                         THEN
                             CASE
-                                WHEN age <= 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 <= 20 
                                     THEN 1
-                                WHEN age BETWEEN 11 AND 20 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 11 AND 20 
                                     THEN 1
-                                WHEN age BETWEEN 21 AND 30 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 21 AND 30 
                                     THEN 1
-                                WHEN age BETWEEN 31 AND 40 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 31 AND 40 
                                     THEN 1
-                                WHEN age BETWEEN 41 AND 50 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 41 AND 50 
                                     THEN 1
-                                WHEN age BETWEEN 51 AND 60 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 51 AND 60 
                                     THEN 1
-                                WHEN age BETWEEN 61 AND 70 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 BETWEEN 61 AND 70 
                                     THEN 1
-                                WHEN age IS NULL 
+                                WHEN DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),e.dateOfBirth)), '%Y')+0 IS NULL 
                                     THEN 0
                                 ELSE 0
                             END
